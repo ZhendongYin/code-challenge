@@ -11,7 +11,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
   test "#payment_request_list" do
     customer = Customer.first
-    get "/payment_request_list/#{customer.id}"
+    get "/pages/payment_request_list/#{customer.id}"
 
     assert_response :success
   end

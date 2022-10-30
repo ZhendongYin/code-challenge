@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "customer_payment_requests_#{@customer.id}" do %>
+  <%= render partial: "payment_requests" %>
+<% end %>

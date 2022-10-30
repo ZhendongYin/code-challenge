@@ -1,0 +1,31 @@
+<%= turbo_frame_tag "customer_payment_requests_#{@customer.id}" do %>
+  <% if @payment_requests.present? %>
+    <table class="table-fixed">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @payment_requests.each do |pr| %>
+          <tr>
+            <td><%= pr.id %></td>
+            <td><%= pr.amount %></td>
+            <% if pr.generated? %>
+              <td><%= link_to pr.status.titlecase, payment_request_path(pr, payment_request: {status: :collected}), data: { 'turbo-method' => :put, "turbo-confirm" => "Are you sure?"} %></td>
+            <% else %>
+              <td><%= pr.status.titlecase %></td>
+              <% if pr == @payment_request %>
+                <td><%= link_to "Undo", payment_request_path(pr, payment_request: {status: :generated}), data: { 'turbo-method' => :put } %></td>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    No payment requests
+  <% end %>
+<% end %>

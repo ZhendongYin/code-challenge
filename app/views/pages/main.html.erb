@@ -1,13 +1,5 @@
-<%= turbo_frame_tag :main_customers_list do %>
-  <h1 class="font-thin text-5xl">Customers</h1>
-
-  <div class="space-y-4 my-4">
-    <% @customers.each do |customer| %>
-      <div class="bg-white border-2 border-gray-300 rounded-3xl px-5 py-4">
-        <span class="text-gray-700 font-bold">
-          <%= customer.first_name %> <%= customer.last_name %>
-        </span>
-      </div>
-    <% end %>
-  </div>
+<h1 class="font-thin text-5xl">Customers</h1>
+<div class="space-y-4 my-4 customer-list">
+<%= turbo_frame_tag "main_customers_list" do %>
+  <%= render partial: "customers" %>
 <% end %>

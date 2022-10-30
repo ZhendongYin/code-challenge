@@ -10,12 +10,17 @@ class PagesController < ApplicationController
 
   def payment_request_list
     @payment_requests = @customer&.payment_requests.order(:id)
+    render partial: "pages/payment_requests"
   end
 
 
   def update
-    if @payment_request.update(payment_request_params)
-      # update
+    respond_to do |format|
+      if @payment_request.update(payment_request_params)
+        @customer = @payment_request.customer
+        @payment_requests = @customer&.payment_requests.order(:id)
+        format.turbo_stream
+      end
     end
   end
 
