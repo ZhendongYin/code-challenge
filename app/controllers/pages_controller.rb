@@ -6,13 +6,18 @@ class PagesController < ApplicationController
 
   def main
     @customers = Customer.all
+    if params[:query]
+      if params[:query][:name_query]
+        @customers = @customers.where("LOWER(CONCAT(first_name, ' ', last_name)) LIKE ?",
+          "%#{params[:query][:name_query].downcase}%")
+      end
+    end
   end
 
   def payment_request_list
     @payment_requests = @customer&.payment_requests.order(:id)
     render partial: "pages/payment_requests"
   end
-
 
   def update
     respond_to do |format|
