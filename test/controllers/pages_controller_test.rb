@@ -18,8 +18,8 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
 
   test "#update" do
     pr = PaymentRequest.generated.first
-    put payment_request_path(pr), params: {payment_request: {status: :generated}}
+    put payment_request_path(pr), params: {payment_request: {status: :generated}}, xhr: true
     pr.reload
-    assert_equal "updated", pr.status
+    assert_equal "generated", pr.status
   end
 end

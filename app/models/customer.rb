@@ -5,4 +5,9 @@ class Customer < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+
+  # get number of generated payment requests
+  def generated_payment_requests_num
+    payment_requests.generated.count
+  end
 end

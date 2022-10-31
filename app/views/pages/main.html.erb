@@ -1,9 +1,10 @@
 <h1 class="font-thin text-5xl">Customers</h1>
-<%= form_with url: root_path, scope: :query, method: :get  do |f| %>
-  <%= f.text_field :name_query %>
-  <%= f.submit "Search" %>
-<% end %>
+
 <div class="space-y-4 my-4 customer-list">
 <%= turbo_frame_tag "main_customers_list" do %>
+  <%= form_with url: root_path, method: :get, class: "input-group" do |f| %>
+    <%= f.text_field :name_query, value: @name_query, class: "form-control rounded" %>
+    <%= f.submit "Search", class: "btn btn-outline-primary" %>
+  <% end %>
   <%= render partial: "customers" %>
 <% end %>

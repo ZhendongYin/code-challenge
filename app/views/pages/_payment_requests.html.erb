@@ -1,26 +1,28 @@
 <%= turbo_frame_tag "customer_payment_requests_#{@customer.id}" do %>
   <% if @payment_requests.present? %>
-    <table class="table-fixed">
+    <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Amount</th>
-          <th>Status</th>
+          <th class="col-1">ID</th>
+          <th class="col-3">Amount</th>
+          <th class="col-3">Status</th>
         </tr>
       </thead>
       <tbody>
         <% @payment_requests.each do |pr| %>
           <tr>
-            <td><%= pr.id %></td>
-            <td><%= pr.amount %></td>
-            <% if pr.generated? %>
-              <td><%= link_to pr.status.titlecase, payment_request_path(pr, payment_request: {status: :collected}), data: { 'turbo-method' => :put, "turbo-confirm" => "Are you sure?"} %></td>
-            <% else %>
-              <td><%= pr.status.titlecase %></td>
-              <% if pr == @payment_request %>
-                <td><%= link_to "Undo", payment_request_path(pr, payment_request: {status: :generated}), data: { 'turbo-method' => :put } %></td>
+            <th class="col-1"><%= pr.id %></th>
+            <td class="col-3"><%= number_to_currency pr.amount %></td>
+            <td class="col-3">
+              <% if pr.generated? %>
+                <%= link_to pr.status.titlecase, payment_request_path(pr, payment_request: {status: :collected}), data: { 'turbo-method' => :put, "turbo-confirm" => "Are you sure?"} %></td>
+              <% else %>
+                  <%= pr.status.titlecase %>
+                  <% if pr == @payment_request %>
+                    <%= link_to "Undo", payment_request_path(pr, payment_request: {status: :generated}), data: { 'turbo-method' => :put } %>
+                  <% end %>
               <% end %>
-            <% end %>
+           </td>
           </tr>
         <% end %>
       </tbody>
@@ -29,3 +31,4 @@
     No payment requests
   <% end %>
 <% end %>
+
