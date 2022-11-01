@@ -6,7 +6,7 @@ class PagesController < ApplicationController
 
   def main
     @customers = Customer.all.joins(:payment_requests).group("customers.id").order(:id)
-    # count generated payment requests
+      # count generated payment requests
       .select("customers.*, COUNT(payment_requests.status = 'generated' OR null) AS generated_pr_num")
 
     # filter by customer name
@@ -19,7 +19,7 @@ class PagesController < ApplicationController
 
   # get payment requests by customer's id
   def payment_request_list
-    @payment_requests = @customer&.payment_requests.order(:id)
+    @payment_requests = @customer&.payment_requests
     render partial: "pages/payment_requests"
   end
 
@@ -28,7 +28,7 @@ class PagesController < ApplicationController
     respond_to do |format|
       if @payment_request.update(payment_request_params)
         @customer = @payment_request.customer
-        @payment_requests = @customer&.payment_requests.order(:id)
+        @payment_requests = @customer&.payment_requests
         format.turbo_stream
       end
     end

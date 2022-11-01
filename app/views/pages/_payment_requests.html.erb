@@ -15,7 +15,7 @@
             <td class="col-3"><%= number_to_currency pr.amount %></td>
             <td class="col-3">
               <% if pr.generated? %>
-                <%= link_to pr.status.titlecase, payment_request_path(pr, payment_request: {status: :collected}), data: { 'turbo-method' => :put, "turbo-confirm" => "Are you sure?"} %></td>
+                <%= link_to pr.status.titlecase, payment_request_path(pr, payment_request: {status: :collected}), data: { 'turbo-method' => :put, "turbo-confirm" => "Are you sure?"} %>
               <% else %>
                   <%= pr.status.titlecase %>
                   <% if pr == @payment_request %>

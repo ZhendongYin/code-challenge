@@ -22,7 +22,7 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "#update" do
-    put payment_request_path(@payment_request), params: {payment_request: {status: :collected}}, xhr: true
+    put payment_request_path(@payment_request), params: { payment_request: { status: :collected } }, xhr: true
     @payment_request.reload
 
     assert_equal "collected", @payment_request.status
