@@ -1,0 +1,12 @@
+<%= turbo_stream.replace "customer_payment_requests_#{@customer.id}" do %>
+  <%= render partial: "payment_requests" %>
+<% end %>
+
+  <%=  turbo_stream.update "generated-payment-requests-num-#{@customer.id}" do %>
+    <% if @customer.generated_payment_requests_num > 0 %>
+
+      <span class="badge rounded-pill bg-info text-dark ms-3" >
+        <%= @customer.generated_payment_requests_num %>
+      </span>
+  <% end %>
+<% end %>

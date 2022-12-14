@@ -20,4 +20,8 @@ class CustomerTest < ActiveSupport::TestCase
     assert_not @customer.valid?
     assert_includes @customer.errors.messages[:last_name], "can't be blank"
   end
+
+  test "generated_payment_requests_num" do
+    assert_equal 1, @customer.generated_payment_requests_num
+  end
 end

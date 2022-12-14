@@ -1,0 +1,22 @@
+ <% @customers.each do |customer| %>
+  <div class="bg-white border-2 border-gray-300 rounded-3xl px-5 py-2 mt-4">
+    <div class="text-gray-700 bg-white font-bold accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target=<%= "#payment-request-#{customer.id}" %> aria-expanded="false">
+      <%= customer.first_name %> <%= customer.last_name %>
+      <div id=<%="generated-payment-requests-num-#{customer.id}"%>>
+        <% if customer.generated_pr_num > 0 %>
+          <span class="badge rounded-pill bg-info text-dark ms-3" >
+            <%= customer.generated_pr_num %>
+          </span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div id=<%= "payment-request-#{customer.id}"%> class="accordion-collapse collapse" data-bs-parent=".customer-list">
+    <div class="px-5 accordion-body">
+      <%= turbo_frame_tag "customer_payment_requests_#{customer.id}", src: "/pages/payment_request_list/#{customer.id}", loading: :lazy do%>
+        Loading ...
+      <% end %>
+    </div>
+  </div>
+<% end %>
